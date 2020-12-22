@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jabberwocky-ui
+  labels:
+    app: "jabberwocky"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      name: jabberwocky-ui
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        name: jabberwocky-ui
+        tier: frontend
+        app: "jabberwocky"
+    spec:
+      containers:
+        - name: jabberwocky-ui
+          image: docker.io/squakez/jbw-ui:0.0.1
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
